@@ -3,23 +3,23 @@ gpio_avr.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000076  00000000  00000000  00000054  2**1
+  0 .text         0000007a  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .comment      00000030  00000000  00000000  000000ca  2**0
+  1 .comment      00000030  00000000  00000000  000000ce  2**0
                   CONTENTS, READONLY
-  2 .debug_aranges 00000020  00000000  00000000  000000fa  2**0
+  2 .debug_aranges 00000020  00000000  00000000  000000fe  2**0
                   CONTENTS, READONLY, DEBUGGING
-  3 .debug_info   00000087  00000000  00000000  0000011a  2**0
+  3 .debug_info   00000087  00000000  00000000  0000011e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  4 .debug_abbrev 00000053  00000000  00000000  000001a1  2**0
+  4 .debug_abbrev 00000053  00000000  00000000  000001a5  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_line   000000b3  00000000  00000000  000001f4  2**0
+  5 .debug_line   000000b7  00000000  00000000  000001f8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_frame  00000024  00000000  00000000  000002a8  2**2
+  6 .debug_frame  00000024  00000000  00000000  000002b0  2**2
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_str    00000116  00000000  00000000  000002cc  2**0
+  7 .debug_str    00000116  00000000  00000000  000002d4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_ranges 00000010  00000000  00000000  000003e2  2**0
+  8 .debug_ranges 00000010  00000000  00000000  000003ea  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -55,28 +55,35 @@ Disassembly of section .text:
   5c:	de bf       	out	0x3e, r29	; 62
   5e:	cd bf       	out	0x3d, r28	; 61
   60:	0e 94 36 00 	call	0x6c	; 0x6c <main>
-  64:	0c 94 39 00 	jmp	0x72	; 0x72 <_exit>
+  64:	0c 94 3b 00 	jmp	0x76	; 0x76 <_exit>
 
 00000068 <__bad_interrupt>:
   68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 0000006c <main>:
-
-#include "macro.h"
-
-int main(void)
-{
-	SET_BIT(DDRA,2);
-  6c:	d2 9a       	sbi	0x1a, 2	; 26
+	* 1 make pin output
+	
+*/
+	
+	// this make bit output
+	SET_BIT(DDRB,0);
+  6c:	b8 9a       	sbi	0x17, 0	; 23
+	SET_BIT(DDRB,7);
+  6e:	bf 9a       	sbi	0x17, 7	; 23
+	
+	
+	//this make porta pin4  0v
+	CLEAR_BIT(PORTA,4);
+  70:	dc 98       	cbi	0x1b, 4	; 27
 	
     while(1)
     {
-        SET_BIT(PORTA,2);
-  6e:	da 9a       	sbi	0x1b, 2	; 27
-  70:	fe cf       	rjmp	.-4      	; 0x6e <main+0x2>
+        SET_BIT(PORTA,4);
+  72:	dc 9a       	sbi	0x1b, 4	; 27
+  74:	fe cf       	rjmp	.-4      	; 0x72 <main+0x6>
 
-00000072 <_exit>:
-  72:	f8 94       	cli
+00000076 <_exit>:
+  76:	f8 94       	cli
 
-00000074 <__stop_program>:
-  74:	ff cf       	rjmp	.-2      	; 0x74 <__stop_program>
+00000078 <__stop_program>:
+  78:	ff cf       	rjmp	.-2      	; 0x78 <__stop_program>

@@ -8,12 +8,27 @@
 
 #include "macro.h"
 
+
 int main(void)
+
 {
-	SET_BIT(DDRA,2);
+	
+	/*
+    * o make pin input 
+	* 1 make pin output
+	
+*/
+	
+	// this make bit output
+	SET_BIT(DDRB,0);
+	SET_BIT(DDRB,7);
+	
+	
+	//this make porta pin4  0v
+	CLEAR_BIT(PORTA,4);
 	
     while(1)
     {
-        SET_BIT(PORTA,2);
+        SET_BIT(PORTA,4);
     }
 }
