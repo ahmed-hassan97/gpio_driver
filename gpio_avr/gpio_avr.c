@@ -2,10 +2,16 @@
  * gpio_avr.c
  *
  * Created: 11/13/2019 8:46:02 AM
- *  Author: A
+ *  Author: Ahmed hassan
  */ 
 
-
+/*
+ * gpio_avr.c
+ *
+ * avr output 1
+ * avr input 0
+ *  Author: Ahmed hassan
+ */ 
 #include "macro.h"
 
 
