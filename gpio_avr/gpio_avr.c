@@ -35,6 +35,7 @@ int main(void)
 	
     while(1)
     {
+	    //
         SET_BIT(PORTA,4);
     }
 }
